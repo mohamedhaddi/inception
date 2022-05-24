@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+
+  # database container (mariadb)
+  mariadb:
+    # this is where it needs to build the mariadb container (where the Dockerfile for mariadb is)
+    build: ./requirements/mariadb
+    container_name: mariadb
+    volumes: ./requirements/mariadb:/var/lib/mysql
+    restart: always
+
+  # website container (wordpress)
+  wordpress:
+    # this is where it needs to build the wordpress container (where the Dockerfile for wordpress is)
+    build: ./requirements/wordpress
+    container_name: wordpress
+    ports: "3000:3000"
+    volumes: ./requirements/wordpress:/var/www/html
+    depends_on: mariadb
+    restart: always
+
+  # webserver container (nginx)
+  nginx: 
+    # this is where it needs to build the nginx container (where the Dockerfile for nginx is)
+    build: ./requirements/nginx/
+    container_name: nginx
+    depends_on: wordpress
+    restart: always
+
