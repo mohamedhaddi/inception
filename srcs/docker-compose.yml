@@ -2,13 +2,6 @@ version: '3'
 
 services:
 
-  # webserver container (nginx)
-  nginx: 
-    # this is where it needs to build the nginx container (where the Dockerfile for nginx is)
-    build: ./requirements/nginx/
-    container_name: nginx
-    restart: always
-
   # database container (mariadb)
   mariadb:
     # this is where it needs to build the mariadb container (where the Dockerfile for mariadb is)
@@ -24,7 +17,15 @@ services:
     container_name: wordpress
     ports: "3000:3000"
     volumes: ./requirements/wordpress:/var/www/html
-    depends_on:
-      - nginx
-      - mariadb
     restart: always
+    depends_on:
+      - mariadb
+
+  # webserver container (nginx)
+  nginx: 
+    # this is where it needs to build the nginx container (where the Dockerfile for nginx is)
+    build: ./requirements/nginx/
+    container_name: nginx
+    restart: always
+    depends_on:
+      - wordpress
