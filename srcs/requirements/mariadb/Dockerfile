@@ -9,3 +9,4 @@ RUN service mysql start \
 	&& mariadb -e "GRANT ALL ON wordpress.* TO 'wordpress_user'@'localhost' IDENTIFIED BY 'password';" \
 	&& mariadb -e "FLUSH PRIVILEGES;"
 
+CMD service mysql start
