@@ -17,13 +17,22 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 	&& chmod +x wp-cli.phar \
 	&& mv wp-cli.phar /usr/local/bin/wp-cli
 
-# this depends on the mariadb container
-CMD service php7.3-fpm start && service php7.3-fpm status \
+WORKDIR /var/www/inception
+
+# start php-fpm and install wordpress
+# for the wp-cli command to be successful, the mariadb container should be running
+CMD service php7.3-fpm start \
+	&& service php7.3-fpm status \
 	&& wp-cli core install \
-	--url= \
+	--url=localhost \
 	--title=inception \
 	--admin_user=inception_user \
 	--admin_password=password \
 	--admin_email=mhaddi@student.1337.ma \
-	--allow-root
+	--allow-root \
+	&& tail -f /var/log/php7.3-fpm.log
+
+	# && rm /run/php/php7.3-fpm.sock
+	# && php-fpm -F -R
+
 

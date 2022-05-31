@@ -9,4 +9,6 @@ RUN service mysql start \
 	&& mariadb -e "GRANT ALL ON inception.* TO 'inception_user'@'localhost' IDENTIFIED BY 'password';" \
 	&& mariadb -e "FLUSH PRIVILEGES;"
 
-CMD service mysql start
+CMD service mysql start \
+	&& service mysql status \
+	&& tail -f /var/log/mysql/error.log

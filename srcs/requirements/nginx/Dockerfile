@@ -10,4 +10,6 @@ RUN mkdir /var/www/inception
 COPY ./conf/inception.conf /etc/nginx/sites-available/inception.conf
 RUN ln -s /etc/nginx/sites-available/inception.conf /etc/nginx/sites-enabled/
 
-CMD service nginx start
+CMD service nginx start \
+	&& service nginx status \
+	&& tail -f /var/log/nginx/access.log
