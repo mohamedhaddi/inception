@@ -1,18 +1,11 @@
-CREATE DATABASE IF NOT EXISTS wordpress;
-CREATE USER 'mhaddi'@'localhost';
-SET PASSWORD FOR 'mhaddi'@'localhost' = PASSWORD('mhaddi');
-GRANT ALL PRIVILEGES ON wordpress.* TO 'mhaddi'@'localhost' IDENTIFIED BY 'mhaddi';
-GRANT ALL ON wordpress.* to 'mhaddi'@'%' IDENTIFIED BY 'mhaddi';
+CREATE DATABASE wordpress;
 
+CREATE USER 'mhaddi'@'%' IDENTIFIED BY 'mhaddi';
+CREATE USER 'mhaddi'@'localhost' IDENTIFIED BY 'mhaddi';
+GRANT ALL PRIVILEGES ON wordpress.* TO 'mhaddi'@'%', 'mhaddi'@'localhost';
 FLUSH PRIVILEGES;
 
-CREATE USER 'superuser'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON *.* TO 'superuser'@'localhost' WITH GRANT OPTION;
+CREATE USER 'simo'@'%' IDENTIFIED BY 'somecomplexpassword';
+CREATE USER 'simo'@'localhost' IDENTIFIED BY 'somecomplexpassword';
+GRANT ALL PRIVILEGES ON wordpress.* TO 'simo'@'%', 'simo'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
-CREATE USER 'superuser'@'%' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON *.* TO 'superuser'@'%' WITH GRANT OPTION;
-
-FLUSH PRIVILEGES;
-
-ALTER USER 'root'@'localhost' IDENTIFIED BY 'newpass';
-flush privileges;
