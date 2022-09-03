@@ -1,6 +1,6 @@
-# To make things simpler, you have to configure your domain name so it points to your local IP address. This domain name must be login.42.fr. 
 # No password must be present in your Dockerfiles. It is mandatory to use environment variables.
 # If you use a .env file to store environment variables, it should be located at the root of srcs/.
+# To make things simpler, you have to configure your domain name so it points to your local IP address. This domain name must be login.42.fr. 
 
 version: "3"
 
@@ -10,9 +10,11 @@ services:
     build: ./requirements/mariadb
     restart: always
     volumes:
-      - /Users/haddi/data/mariadb:/var/lib/mysql
+      - ${HOME}/data/mariadb:/var/lib/mysql
     networks:
     - inception
+    env_file:
+      - .env
 
   wordpress:
     depends_on:
@@ -21,9 +23,11 @@ services:
     build: ./requirements/wordpress
     restart: always
     volumes:
-      - /Users/haddi/data/wordpress:/var/www/wordpress
+      - ${HOME}/data/wordpress:/var/www/wordpress
     networks:
       - inception
+    env_file:
+      - .env
 
   nginx:
     depends_on:
@@ -32,24 +36,26 @@ services:
     build: ./requirements/nginx
     restart: always
     volumes:
-      - /Users/haddi/data/wordpress:/var/www/wordpress
+      - ${HOME}/data/wordpress:/var/www/wordpress
     networks:
       - inception
     ports:
       - "443:443"
+    env_file:
+      - .env
 
 volumes:
   mariadb_volume:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/Users/haddi/data/mariadb'
+      device: '${HOME}/data/mariadb'
 
   wordpress_volume:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/Users/haddi/data/wordpress'
+      device: '${HOME}/data/wordpress'
 
 networks:
   inception:

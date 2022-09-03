@@ -5,6 +5,8 @@ RUN apt-get update -y && \
 
 RUN sed 's/listen = \/run\/php\/php7.3-fpm.sock/listen = 0.0.0.0:9000/' -i /etc/php/7.3/fpm/pool.d/www.conf
 
+RUN echo "clear_env = no" >> /etc/php/7.3/fpm/pool.d/www.conf
+
 RUN mkdir /tmp_files
 
 COPY conf/* /tmp_files/.

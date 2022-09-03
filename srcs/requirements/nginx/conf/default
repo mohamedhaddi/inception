@@ -4,7 +4,6 @@ server
 	listen 443 ssl default_server;
 	listen [::]:443 ssl default_server;
 
-	# server_name mhaddi.42.fr;
 	server_name	localhost www.localhost;
 
 	ssl	on;
