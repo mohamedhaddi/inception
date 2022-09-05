@@ -1,12 +1,12 @@
 NAME = inception
 
 $(NAME): set_redirect
-	docker-compose -f srcs/docker-compose.yml up
+	sudo docker-compose -f srcs/docker-compose.yml up
 
 all: $(NAME)
 
 clean:
-	docker-compose -f srcs/docker-compose.yml down
+	sudo docker-compose -f srcs/docker-compose.yml down
 
 fclean: clean
 
