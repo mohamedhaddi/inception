@@ -9,3 +9,6 @@ CREATE USER 'simo'@'%' IDENTIFIED BY 'somecomplexpassword';
 CREATE USER 'simo'@'localhost' IDENTIFIED BY 'somecomplexpassword';
 GRANT ALL PRIVILEGES ON wordpress.* TO 'simo'@'%', 'simo'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
+
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'somereallycomplexpassword';
+FLUSH PRIVILEGES;
