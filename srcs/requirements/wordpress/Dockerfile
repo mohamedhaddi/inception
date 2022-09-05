@@ -9,7 +9,7 @@ RUN echo "clear_env = no" >> /etc/php/7.3/fpm/pool.d/www.conf
 
 RUN mkdir /tmp_files
 
-COPY conf/* /tmp_files/.
+COPY conf/* /tmp_files/
 
 WORKDIR /tmp_files
 
