@@ -1,7 +1,3 @@
-# No password must be present in your Dockerfiles. It is mandatory to use environment variables.
-# If you use a .env file to store environment variables, it should be located at the root of srcs/.
-# To make things simpler, you have to configure your domain name so it points to your local IP address. This domain name must be login.42.fr. 
-
 version: "3"
 
 services:
@@ -10,7 +6,7 @@ services:
     build: ./requirements/mariadb
     restart: always
     volumes:
-      - ${HOME}/data/mariadb:/var/lib/mysql
+      - mariadb_volume:/var/lib/mysql
     networks:
     - inception
     env_file:
@@ -23,7 +19,7 @@ services:
     build: ./requirements/wordpress
     restart: always
     volumes:
-      - ${HOME}/data/wordpress:/var/www/wordpress
+      - wordpress_volume:/var/www/wordpress
     networks:
       - inception
     env_file:
@@ -36,7 +32,7 @@ services:
     build: ./requirements/nginx
     restart: always
     volumes:
-      - ${HOME}/data/wordpress:/var/www/wordpress
+      - wordpress_volume:/var/www/wordpress
     networks:
       - inception
     ports:
@@ -46,16 +42,20 @@ services:
 
 volumes:
   mariadb_volume:
+    name: mariadb_volume
+    driver: local
     driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '${HOME}/data/mariadb'
+      device: /home/mhaddi/data/mariadb
+      o: bind
+      type: volume
 
   wordpress_volume:
+    name: wordpress_volume
+    driver: local
     driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '${HOME}/data/wordpress'
+      device: /home/mhaddi/data/wordpress
+      o: bind
+      type: volume
 
 networks:
   inception:
